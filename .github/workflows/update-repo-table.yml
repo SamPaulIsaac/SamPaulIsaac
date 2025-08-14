@@ -1,32 +1,37 @@
-name: Update GitHub Repo Table
+name: Update Repo Table
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight UTC
+    - cron: '0 0 * * *' # daily at midnight UTC
   workflow_dispatch:
 
 jobs:
   update-repo-table:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install @octokit/rest dotenv
+        run: npm install
+        working-directory: .github/workflows
 
-      - name: Update README repo table
-        run: node .github/workflows/generate-repo-list.js
+      - name: Update README Repo Table
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: node generate-repo-list.js
+        working-directory: .github/workflows
 
       - name: Commit and push changes
         run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Auto-update repo table" || echo "No changes to commit"
+          git diff --cached --quiet || git commit -m "Update GitHub repo table"
           git push
