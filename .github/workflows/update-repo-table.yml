@@ -23,7 +23,7 @@ jobs:
 
       - name: Update README
         env:
-          GITHUB_USERNAME: ${{ secrets.SAMPAULISAAC }}
+          GITHUB_USERNAME: SAMPAULISAAC
           GITHUB_TOKEN: ${{ secrets.PAT }}
         run: npm run update-readme
 
