@@ -101,5 +101,6 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 </p>
 
 <p align="center">
-  ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=SamPaulIsaac&theme=dark)
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=SamPaulIsaac&theme=dark" alt="GitHub Streak" />
 </p>
+
