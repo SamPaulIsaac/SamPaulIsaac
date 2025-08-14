@@ -2,18 +2,12 @@
 
 ## 📊 GitHub Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=SamPaulIsaac&show_icons=true&count_private=true&theme=radical)
-
-### Quick Stats
-![Total Repositories](https://img.shields.io/github/repos/SamPaulIsaac?color=blue)
-![Total Commits](https://img.shields.io/github/commit-activity/m/SamPaulIsaac?color=green)
-![Total Stars](https://img.shields.io/github/stars/SamPaulIsaac?color=yellow)
-![Total Contributions](https://img.shields.io/github/contributors/SamPaulIsaac?color=purple)
-
-*Stats update daily via GitHub Actions.*
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=SamPaulIsaac&show_icons=true&count_private=true&theme=radical&cache_seconds=1800)
 
 ### Top Languages
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=SamPaulIsaac&layout=compact&theme=radical)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=SamPaulIsaac&layout=compact&theme=radical&cache_seconds=1800&langs_count=10)
+
+*Stats update daily via GitHub Actions.*
 
 ---
 
