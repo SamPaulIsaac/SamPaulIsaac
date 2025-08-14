@@ -87,6 +87,15 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 
 ---
 
+### 📊 GitHub Repositories
+
+| Repository | Stars | Forks | Visibility | Commits |
+|------------|-------|-------|------------|---------|
+<!-- REPO-LIST-START -->
+<!-- REPO-LIST-END -->
+
+---
+
 ### 📫 Connect with me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-007ACC?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sampaulisaac/)  
@@ -103,4 +112,3 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 <p align="center">
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=SamPaulIsaac&theme=dark" alt="GitHub Streak" />
 </p>
-
