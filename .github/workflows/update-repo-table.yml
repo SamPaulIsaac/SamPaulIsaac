@@ -25,4 +25,4 @@ jobs:
       - name: Run repo list generator
         run: node .github/workflows/generate-repo-list.js
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
