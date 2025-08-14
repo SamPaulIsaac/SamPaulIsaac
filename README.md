@@ -112,3 +112,19 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 <p align="center">
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=SamPaulIsaac&theme=dark" alt="GitHub Streak" />
 </p>
+
+<!-- START REPO TABLE -->
+| Repository | Description | Language | Stars | Forks |
+|-----------|------------|---------|-------|-------|
+| [backend-labs-go](https://github.com/SamPaulIsaac/backend-labs-go) |   A structured collection of backend engineering prototypes and technical experiments using Go (Golang). | Go | 1 | 0 |
+| [ai-and-ml-labs](https://github.com/SamPaulIsaac/ai-and-ml-labs) | A structured exploration of AI and machine learning concepts. Includes notebooks, experiments, and applied learning across key topics. | Python | 0 | 0 |
+| [backend-labs-node](https://github.com/SamPaulIsaac/backend-labs-node) | A structured collection of backend engineering prototypes and technical experiments using Node.js. | JavaScript | 0 | 0 |
+| [backend-labs-rubyonrails](https://github.com/SamPaulIsaac/backend-labs-rubyonrails) |   A structured collection of backend engineering prototypes and technical experiments using Ruby on Rails. | - | 0 | 0 |
+| [backend-labs-springboot](https://github.com/SamPaulIsaac/backend-labs-springboot) | A hands-on collection of backend experiments and techniques. Includes projects exploring Spring Boot, testing strategies, messaging, and service architecture. | Java | 0 | 0 |
+| [backend-learning-hub](https://github.com/SamPaulIsaac/backend-learning-hub) | - | Java | 0 | 0 |
+| [dsa-labs](https://github.com/SamPaulIsaac/dsa-labs) | A structured collection of Data Structures and Algorithms (DSA) concepts, implementations, and problem-solving patterns. Designed for deep learning, coding interviews, and system-level thinking. | - | 0 | 0 |
+| [leetcode-labs](https://github.com/SamPaulIsaac/leetcode-labs) | A curated collection of my LeetCode problem-solving journey. Solutions are organized by difficulty and topic. | Java | 0 | 0 |
+| [python-labs](https://github.com/SamPaulIsaac/python-labs) | A practical playground for Python scripting, data handling, and utility tools. Organized for quick experimentation and modular growth. | Python | 0 | 0 |
+| [SamPaulIsaac](https://github.com/SamPaulIsaac/SamPaulIsaac) | - | - | 0 | 0 |
+| [theology-labs](https://github.com/SamPaulIsaac/theology-labs) | A platform for exploring and reflecting on Scripture. Features verse mappings, topics, and tools for structured learning. | - | 0 | 0 |
+<!-- END REPO TABLE -->
