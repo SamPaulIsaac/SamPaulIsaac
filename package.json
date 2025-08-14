@@ -1,0 +1,14 @@
+{
+  "name": "generate-repo-list",
+  "version": "1.0.0",
+  "description": "GitHub Action script to generate dynamic repo table for README",
+  "main": "generate-repo-list.js",
+  "scripts": {
+    "start": "node generate-repo-list.js"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.0.2"
+  },
+  "author": "Sam Paul Isaac",
+  "license": "MIT"
+}
