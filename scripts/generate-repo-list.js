@@ -9,7 +9,7 @@ const STREAK_FILE = "./.github/workflows/streak.json";
 
 // Fetch repositories
 async function fetchRepos() {
-  const response = await fetch(`https://api.github.com/user/repos?per_page=100&affiliation=owner`, {
+  const response = await fetch(`https://api.github.com/user/repos?per_page=100`, {
     headers: {
       Authorization: `token ${TOKEN}`,
       Accept: "application/vnd.github.v3+json"
@@ -27,11 +27,11 @@ async function fetchRepos() {
   return data.sort((a, b) => b.stargazers_count - a.stargazers_count);
 }
 
-// Generate Markdown table
+// Generate Markdown table (all clickable)
 function generateTable(repos) {
   let table = "| Name | Description | Stars |\n|------|-------------|-------|\n";
   repos.forEach(r => {
-    const nameDisplay = `[${r.name}](${r.html_url})`; // clickable for all repos
+    const nameDisplay = `[${r.name}](${r.html_url})`;
     table += `| ${nameDisplay} | ${r.description || "-"} | ${r.stargazers_count} |\n`;
   });
   return table;
@@ -53,7 +53,7 @@ function getStreak() {
 // Update streak
 function updateStreak(streak) {
   const today = new Date().toISOString().slice(0, 10);
-  if (streak.lastUpdated === today) return streak; // already updated today
+  if (streak.lastUpdated === today) return streak;
   streak.count += 1;
   streak.lastUpdated = today;
   try {
@@ -74,13 +74,11 @@ function updateReadme(table, streak) {
     throw err;
   }
 
-  // Update repo table
   const start = "<!-- START REPO TABLE -->";
   const end = "<!-- END REPO TABLE -->";
   const regexTable = new RegExp(`${start}[\\s\\S]*${end}`, "m");
   readme = readme.replace(regexTable, `${start}\n${table}${end}`);
 
-  // Update streak badge
   const streakBadgeRegex = /<img src="https:\/\/readme-streak-stats\.herokuapp\.com\/\?user=[^"]+"[^>]*>/;
   const newBadge = `<img src="https://readme-streak-stats.herokuapp.com/?user=${USERNAME}&theme=dark&count=${streak.count}" alt="GitHub Streak" />`;
   readme = readme.replace(streakBadgeRegex, newBadge);
