@@ -11,12 +11,14 @@ const octokit = new Octokit({ auth: GITHUB_TOKEN });
 const username = "SamPaulIsaac";
 const readmePath = "README.md";
 
+// Fetch all repos including private
 async function fetchRepos(page = 1, repos = []) {
   try {
     const response = await octokit.rest.repos.listForAuthenticatedUser({
-      visibility: "all",
       per_page: 100,
       page,
+      sort: "updated",
+      affiliation: "owner",
     });
 
     repos.push(...response.data);
@@ -32,10 +34,12 @@ async function fetchRepos(page = 1, repos = []) {
   }
 }
 
+// Build Markdown table
 function buildTable(repos) {
   let table = `<!-- START REPO TABLE -->\n| Repository | Description | Language | Stars | Forks | Visibility |\n|-----------|------------|---------|-------|-------|-----------|\n`;
 
   repos.forEach((repo) => {
+    // Only link public repos
     const nameDisplay = repo.private ? repo.name : `[${repo.name}](${repo.html_url})`;
     table += `| ${nameDisplay} | ${repo.description || "-"} | ${repo.language || "-"} | ${repo.stargazers_count} | ${repo.forks_count} | ${repo.private ? "Private" : "Public"} |\n`;
   });
@@ -44,14 +48,20 @@ function buildTable(repos) {
   return table;
 }
 
+// Update README.md
 async function updateReadme() {
   const repos = await fetchRepos();
-  const readme = readFileSync(readmePath, "utf-8");
+  let readme = readFileSync(readmePath, "utf-8");
+
+  // If repo table does not exist yet, insert a placeholder
+  if (!readme.includes("<!-- START REPO TABLE -->")) {
+    readme += "\n\n<!-- START REPO TABLE -->\n<!-- END REPO TABLE -->";
+  }
+
   const newTable = buildTable(repos);
-
   const updated = readme.replace(/<!-- START REPO TABLE -->[\s\S]*<!-- END REPO TABLE -->/, newTable);
-  writeFileSync(readmePath, updated, "utf-8");
 
+  writeFileSync(readmePath, updated, "utf-8");
   console.log("✅ README.md repo table updated successfully!");
 }
 
