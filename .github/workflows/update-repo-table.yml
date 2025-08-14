@@ -26,3 +26,5 @@ jobs:
         run: node .github/workflows/generate-repo-list.js
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
+        working-directory: ./
+
