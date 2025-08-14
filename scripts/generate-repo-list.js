@@ -7,26 +7,9 @@ const TOKEN = process.env.GITHUB_TOKEN;
 const README_PATH = "./README.md";
 const STREAK_FILE = "./.github/workflows/streak.json";
 
-// Fetch repositories (public + private)// Generate Markdown table
-function generateTable(repos) {
-  let table = "| Name | Description | Stars |\n|------|-------------|-------|\n";
-  repos.forEach(r => {
-    let nameDisplay;
-    if (r.private) {
-      // Non-clickable, dimmed text for private repos
-      nameDisplay = `🔒 ${r.name}`;
-    } else {
-      // Regular clickable link for public repos
-      nameDisplay = `[${r.name}](${r.html_url})`;
-    }
-
-    table += `| ${nameDisplay} | ${r.description || "-"} | ${r.stargazers_count} |\n`;
-  });
-  return table;
-}
-
+// Fetch repositories
 async function fetchRepos() {
-  const response = await fetch(`https://api.github.com/user/repos?per_page=100&sort=updated`, {
+  const response = await fetch(`https://api.github.com/user/repos?per_page=100&affiliation=owner`, {
     headers: {
       Authorization: `token ${TOKEN}`,
       Accept: "application/vnd.github.v3+json"
@@ -36,19 +19,13 @@ async function fetchRepos() {
   const data = await response.json();
   console.log("API response:", data);
 
-  // Error handling
   if (!Array.isArray(data)) {
     console.error("Error fetching repos from GitHub API:", data);
     throw new Error("Failed to fetch repositories. Check USERNAME and TOKEN secrets.");
   }
 
-  // Optional: filter out forks if you don't want them in the table
-  const filtered = data.filter(repo => !repo.fork);
-
-  // Sort by stargazers count descending
-  return filtered.sort((a, b) => b.stargazers_count - a.stargazers_count);
+  return data.sort((a, b) => b.stargazers_count - a.stargazers_count);
 }
-
 
 // Generate Markdown table
 function generateTable(repos) {
@@ -56,19 +33,15 @@ function generateTable(repos) {
   repos.forEach(r => {
     let nameDisplay;
     if (r.private) {
-      // Non-clickable, dimmed text for private repos
-      nameDisplay = `🔒 ${r.name}`;
+      nameDisplay = `🔒 ${r.name}`; // private repo, non-clickable
     } else {
-      // Regular clickable link for public repos
-      nameDisplay = `[${r.name}](${r.html_url})`;
+      nameDisplay = `[${r.name}](${r.html_url})`; // public repo, clickable
     }
 
     table += `| ${nameDisplay} | ${r.description || "-"} | ${r.stargazers_count} |\n`;
   });
   return table;
 }
-
-
 
 // Read or initialize streak
 function getStreak() {
@@ -86,7 +59,7 @@ function getStreak() {
 // Update streak
 function updateStreak(streak) {
   const today = new Date().toISOString().slice(0, 10);
-  if (streak.lastUpdated === today) return streak;
+  if (streak.lastUpdated === today) return streak; // already updated today
   streak.count += 1;
   streak.lastUpdated = today;
   try {
@@ -108,14 +81,14 @@ function updateReadme(table, streak) {
   }
 
   // Update repo table
-  const start = "<!-- REPO_TABLE_START -->";
-  const end = "<!-- REPO_TABLE_END -->";
+  const start = "<!-- START REPO TABLE -->";
+  const end = "<!-- END REPO TABLE -->";
   const regexTable = new RegExp(`${start}[\\s\\S]*${end}`, "m");
   readme = readme.replace(regexTable, `${start}\n${table}${end}`);
 
-  // Update streak badge (simple URL from service)
+  // Update streak badge
   const streakBadgeRegex = /<img src="https:\/\/readme-streak-stats\.herokuapp\.com\/\?user=[^"]+"[^>]*>/;
-  const newBadge = `<img src="https://readme-streak-stats.herokuapp.com/?user=${USERNAME}&theme=dark" alt="GitHub Streak" />`;
+  const newBadge = `<img src="https://readme-streak-stats.herokuapp.com/?user=${USERNAME}&theme=dark&count=${streak.count}" alt="GitHub Streak" />`;
   readme = readme.replace(streakBadgeRegex, newBadge);
 
   try {
