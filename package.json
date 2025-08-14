@@ -7,7 +7,7 @@
     "start": "node generate-repo-list.js"
   },
   "dependencies": {
-    "octokit": "^3.0.0"
+    "@octokit/rest": "^21.0.2"
   },
   "author": "Sam Paul Isaac",
   "license": "MIT"
