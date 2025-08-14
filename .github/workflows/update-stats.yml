@@ -22,7 +22,7 @@ jobs:
 
       - name: Update README stats
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSON_ACCESS_TOKEN }} # <-- your existing token stored as PAT
+          GITHUB_TOKEN: ${{ secrets.PERSON_ACCESS_TOKEN }} # your existing PAT stored as secret
           USERNAME: "SamPaul Isaac" # change to your GitHub username
         run: |
           node <<'EOF'
@@ -35,18 +35,20 @@ jobs:
           async function fetchStats() {
             const headers = { Authorization: `token ${token}` };
 
-            // Fetch private repo count
-            let repoCount = 0;
+            // 1️⃣ Fetch private repo count + stars
+            let privateRepoCount = 0;
+            let totalStars = 0;
             let page = 1;
             while (true) {
-              const reposRes = await fetch(`https://api.github.com/user/repos?per_page=100&type=private&page=${page}`, { headers });
+              const reposRes = await fetch(`https://api.github.com/user/repos?per_page=100&page=${page}`, { headers });
               const repos = await reposRes.json();
               if (!repos.length) break;
-              repoCount += repos.length;
+              privateRepoCount += repos.filter(r => r.private).length;
+              totalStars += repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
               page++;
             }
 
-            // Fetch total commits this year
+            // 2️⃣ Fetch total commits this year
             const year = new Date().getFullYear();
             const commitRes = await fetch(`https://api.github.com/search/commits?q=author:${username}+author-date:>=${year}-01-01`, {
               headers: { ...headers, Accept: 'application/vnd.github.cloak-preview' }
@@ -54,10 +56,30 @@ jobs:
             const commitData = await commitRes.json();
             const commitCount = commitData.total_count || 0;
 
-            // Update README with badge-compatible numbers
+            // 3️⃣ Fetch total contributions (commits + issues + PRs + reviews)
+            let contributions = commitCount;
+
+            // Issues created
+            const issuesRes = await fetch(`https://api.github.com/search/issues?q=author:${username}+created:>=${year}-01-01+type:issue`, { headers });
+            const issuesData = await issuesRes.json();
+            contributions += issuesData.total_count || 0;
+
+            // PRs created
+            const prsRes = await fetch(`https://api.github.com/search/issues?q=author:${username}+created:>=${year}-01-01+type:pr`, { headers });
+            const prsData = await prsRes.json();
+            contributions += prsData.total_count || 0;
+
+            // Reviews given
+            const reviewsRes = await fetch(`https://api.github.com/search/issues?q=reviewed-by:${username}+created:>=${year}-01-01+type:pr`, { headers });
+            const reviewsData = await reviewsRes.json();
+            contributions += reviewsData.total_count || 0;
+
+            // 4️⃣ Update README badges
             let readme = fs.readFileSync('README.md', 'utf8');
-            readme = readme.replace(/(Private%20Repos-).*?-blue/, `$1${repoCount}-blue`);
+            readme = readme.replace(/(Private%20Repos-).*?-blue/, `$1${privateRepoCount}-blue`);
             readme = readme.replace(/(Commits%20This%20Year-).*?-green/, `$1${commitCount}-green`);
+            readme = readme.replace(/(Total%20Stars-).*?-yellow/, `$1${totalStars}-yellow`);
+            readme = readme.replace(/(Contributions-).*?-purple/, `$1${contributions}-purple`);
             fs.writeFileSync('README.md', readme);
           }
 
