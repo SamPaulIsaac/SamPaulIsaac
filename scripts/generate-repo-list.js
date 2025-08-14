@@ -7,7 +7,24 @@ const TOKEN = process.env.GITHUB_TOKEN;
 const README_PATH = "./README.md";
 const STREAK_FILE = "./.github/workflows/streak.json";
 
-// Fetch repositories (public + private)
+// Fetch repositories (public + private)// Generate Markdown table
+function generateTable(repos) {
+  let table = "| Name | Description | Stars |\n|------|-------------|-------|\n";
+  repos.forEach(r => {
+    let nameDisplay;
+    if (r.private) {
+      // Non-clickable, dimmed text for private repos
+      nameDisplay = `🔒 ${r.name}`;
+    } else {
+      // Regular clickable link for public repos
+      nameDisplay = `[${r.name}](${r.html_url})`;
+    }
+
+    table += `| ${nameDisplay} | ${r.description || "-"} | ${r.stargazers_count} |\n`;
+  });
+  return table;
+}
+
 async function fetchRepos() {
   const response = await fetch(`https://api.github.com/user/repos?per_page=100&sort=updated`, {
     headers: {
@@ -34,16 +51,23 @@ async function fetchRepos() {
 
 
 // Generate Markdown table
-// Generate Markdown table
 function generateTable(repos) {
   let table = "| Name | Description | Stars |\n|------|-------------|-------|\n";
   repos.forEach(r => {
-    // Add lock icon for private repos
-    const nameWithLock = r.private ? `🔒 [${r.name}](${r.html_url})` : `[${r.name}](${r.html_url})`;
-    table += `| ${nameWithLock} | ${r.description || "-"} | ${r.stargazers_count} |\n`;
+    let nameDisplay;
+    if (r.private) {
+      // Non-clickable, dimmed text for private repos
+      nameDisplay = `🔒 ${r.name}`;
+    } else {
+      // Regular clickable link for public repos
+      nameDisplay = `[${r.name}](${r.html_url})`;
+    }
+
+    table += `| ${nameDisplay} | ${r.description || "-"} | ${r.stargazers_count} |\n`;
   });
   return table;
 }
+
 
 
 // Read or initialize streak
