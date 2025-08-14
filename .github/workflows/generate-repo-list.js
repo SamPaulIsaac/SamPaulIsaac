@@ -1,5 +1,5 @@
 const { writeFileSync, readFileSync } = require("fs");
-const { Octokit } = require("octokit");
+const { Octokit } = require("@octokit/rest");
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 if (!GITHUB_TOKEN) {
