@@ -1,8 +1,9 @@
 name: Update GitHub Repo Table
 
+# Triggers: daily at midnight or manual trigger
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs daily at midnight
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -10,18 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout your repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # 3️⃣ Install dependencies (if package.json exists)
       - name: Install dependencies
         run: npm install
         working-directory: .github/workflows
 
+      # 4️⃣ Run repo list generator script
       - name: Run repo list generator
         run: node .github/workflows/generate-repo-list.js
         env:
