@@ -1,5 +1,5 @@
 const { writeFileSync, readFileSync } = require("fs");
-const { Octokit } = require("@octokit/rest");
+const { Octokit } = require("octokit");
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 if (!GITHUB_TOKEN) {
@@ -37,6 +37,7 @@ function buildTable(repos) {
   let table = `<!-- START REPO TABLE -->\n| Repository | Description | Language | Stars | Forks | Visibility |\n|-----------|------------|---------|-------|-------|-----------|\n`;
 
   repos.forEach((repo) => {
+    // Private repos are plain text; public repos are clickable
     const nameDisplay = repo.private ? repo.name : `[${repo.name}](${repo.html_url})`;
     table += `| ${nameDisplay} | ${repo.description || "-"} | ${repo.language || "-"} | ${repo.stargazers_count} | ${repo.forks_count} | ${repo.private ? "Private" : "Public"} |\n`;
   });
