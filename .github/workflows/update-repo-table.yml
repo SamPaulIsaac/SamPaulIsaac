@@ -1,0 +1,83 @@
+name: Update GitHub Repositories Table
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # daily at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install axios fs
+
+      - name: Generate Repositories Table
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const axios = require('axios');
+
+          const username = 'SamPaulIsaac';
+          const token = process.env.GITHUB_TOKEN;
+          const readmePath = 'README.md';
+
+          const headers = {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github+json'
+          };
+
+          async function getRepos(page=1, allRepos=[]) {
+            const res = await axios.get(`https://api.github.com/user/repos?per_page=100&page=${page}`, { headers });
+            if (res.data.length === 0) return allRepos;
+            return getRepos(page+1, allRepos.concat(res.data));
+          }
+
+          async function getCommitCount(repoName) {
+            try {
+              const res = await axios.get(`https://api.github.com/repos/${username}/${repoName}/commits?per_page=1`, { headers });
+              const linkHeader = res.headers.link;
+              if (!linkHeader) return res.data.length;
+              const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
+              return match ? parseInt(match[1], 10) : res.data.length;
+            } catch (err) {
+              return 0;
+            }
+          }
+
+          (async () => {
+            const repos = await getRepos();
+            let tableRows = '';
+            let toggle = true;
+            repos.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
+
+            for (const repo of repos) {
+              const bg = toggle ? '#F5F5F5' : '#FFFFFF';
+              toggle = !toggle;
+              const commits = await getCommitCount(repo.name);
+              tableRows += `<tr style="background-color:${bg}"><td>${repo.name}</td><td>${repo.stargazers_count}</td><td>${repo.forks_count}</td><td>${repo.private ? 'Private' : 'Public'}</td><td>${commits}</td></tr>\n`;
+            }
+
+            let readme = fs.readFileSync(readmePath, 'utf-8');
+            readme = readme.replace(/<!-- REPO-LIST-START -->[\s\S]*<!-- REPO-LIST-END -->/, `<!-- REPO-LIST-START -->\n${tableRows}<!-- REPO-LIST-END -->`);
+            fs.writeFileSync(readmePath, readme, 'utf-8');
+          })();
+          EOF
+
+      - name: Commit & Push README update
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update repository table" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
