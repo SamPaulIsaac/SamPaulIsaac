@@ -2,7 +2,7 @@ const fs = require('fs');
 const { Octokit } = require('@octokit/rest');
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN // Make sure your workflow sets GITHUB_TOKEN
+  auth: process.env.GITHUB_TOKEN
 });
 
 const username = 'SamPaulIsaac';
@@ -12,44 +12,54 @@ async function fetchRepos() {
   const repos = await octokit.paginate(octokit.repos.listForUser, {
     username,
     type: 'all',
-    sort: 'updated',
-    per_page: 100,
+    per_page: 100
   });
-
-  return repos.map(repo => ({
-    name: repo.name,
-    description: repo.description || '',
-    stars: repo.stargazers_count,
-    forks: repo.forks_count,
-    visibility: repo.private ? 'Private' : 'Public',
-    url: repo.html_url,
-  }));
+  return repos;
 }
 
 function generateTable(repos) {
-  const header = '| Repository | Description | Stars | Forks | Visibility |\n| --- | --- | --- | --- | --- |\n';
-  const rows = repos.map(r =>
-    `| [${r.name}](${r.url}) | ${r.description} | ${r.stars} | ${r.forks} | ${r.visibility} |`
-  ).join('\n');
+  let table = `| Repository | Description | Language | Stars | Forks |\n`;
+  table += `|-----------|------------|---------|-------|-------|\n`;
 
-  return `${header}${rows}`;
+  repos
+    .sort((a, b) => b.stargazers_count - a.stargazers_count) // sort by stars
+    .forEach(repo => {
+      const name = `[${repo.name}](${repo.html_url})`;
+      const desc = repo.description ? repo.description.replace(/\|/g, '\\|') : '-';
+      const lang = repo.language || '-';
+      const stars = repo.stargazers_count;
+      const forks = repo.forks_count;
+      table += `| ${name} | ${desc} | ${lang} | ${stars} | ${forks} |\n`;
+    });
+
+  return table;
 }
 
 async function updateReadme() {
   const repos = await fetchRepos();
-  const table = generateTable(repos);
+  const repoTable = generateTable(repos);
 
-  const readme = fs.readFileSync(readmePath, 'utf8');
-  const updatedReadme = readme.replace(
-    /<!-- REPO-LIST-START -->[\s\S]*<!-- REPO-LIST-END -->/,
-    `<!-- REPO-LIST-START -->\n${table}\n<!-- REPO-LIST-END -->`
-  );
+  let readme = fs.readFileSync(readmePath, 'utf-8');
 
-  fs.writeFileSync(readmePath, updatedReadme);
-  console.log('README updated successfully!');
+  const startTag = '<!-- START REPO TABLE -->';
+  const endTag = '<!-- END REPO TABLE -->';
+
+  const regex = new RegExp(`${startTag}[\\s\\S]*?${endTag}`, 'm');
+
+  const newContent = `${startTag}\n${repoTable}${endTag}`;
+
+  if (regex.test(readme)) {
+    readme = readme.replace(regex, newContent);
+  } else {
+    // if tags not found, append at the end
+    readme += `\n${newContent}\n`;
+  }
+
+  fs.writeFileSync(readmePath, readme, 'utf-8');
+  console.log('README.md updated successfully!');
 }
 
 updateReadme().catch(err => {
-  console.error('Error updating README:', err);
+  console.error(err);
   process.exit(1);
 });
