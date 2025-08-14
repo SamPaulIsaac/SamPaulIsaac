@@ -45,8 +45,11 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 
 ### 📊 GitHub Repositories
 
-<!-- START REPO TABLE -->
-<!-- END REPO TABLE -->
+<!-- REPO_TABLE_START -->
+| Name | Description | Stars |
+|------|-------------|-------|
+| [example-repo](https://github.com/SamPaulIsaac/example-repo) | Example repo description | 3 |
+<!-- REPO_TABLE_END -->
 
 ---
 
@@ -64,6 +67,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 </p>
 
 <p align="center">
-  <img src="https://readme-streak-stats.herokuapp.com/?user=SAMPAULISAAC&theme=dark&count=0" alt="GitHub Streak" />
+  <img src="https://readme-streak-stats.herokuapp.com/?user=SamPaulIsaac&theme=dark" alt="GitHub Streak" />
 </p>
+
 
