@@ -1,69 +1,59 @@
 const fs = require('fs');
-const path = require('path');
-const { Octokit } = require("@octokit/rest");
+const { Octokit } = require('@octokit/rest');
 
-// GitHub token with repo access
-const token = process.env.GITHUB_TOKEN;
-if (!token) {
-  console.error("Please set the GITHUB_TOKEN environment variable.");
-  process.exit(1);
-}
-
-const octokit = new Octokit({ auth: token });
-const username = "SamPaulIsaac";
-const readmePath = path.join(__dirname, "..", "README.md");
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+const owner = 'SamPaulIsaac';
+const readmePath = 'README.md';
+const startMarker = '<!-- START REPO TABLE -->';
+const endMarker = '<!-- END REPO TABLE -->';
 
 async function getRepos() {
   let repos = [];
   let page = 1;
-  const perPage = 100;
 
   while (true) {
-    const response = await octokit.repos.listForUser({
-      username,
-      per_page: perPage,
-      page
+    const { data } = await octokit.repos.listForUser({
+      username: owner,
+      type: 'all',
+      per_page: 100,
+      page,
     });
 
-    repos = repos.concat(response.data);
-    if (response.data.length < perPage) break;
+    if (!data.length) break;
+    repos = repos.concat(data);
     page++;
   }
 
   return repos;
 }
 
-function generateTable(repos) {
-  let table = `| Repository | Description | Language | Stars | Forks | Visibility |\n`;
-  table += `|-----------|------------|---------|-------|-------|-----------|\n`;
-
-  repos.forEach(repo => {
-    const nameCell = repo.private
-      ? `${repo.name}` // non-clickable for private
-      : `[${repo.name}](${repo.html_url})`;
-    table += `| ${nameCell} | ${repo.description || "-"} | ${repo.language || "-"} | ${repo.stargazers_count} | ${repo.forks_count} | ${repo.private ? "Private" : "Public"} |\n`;
-  });
-
-  return table;
+function formatRow(repo) {
+  const visibility = repo.private ? 'Private' : 'Public';
+  const nameText = repo.private ? repo.name : `[${repo.name}](${repo.html_url})`;
+  const description = repo.description ? repo.description.replace(/\|/g, '\\|') : '-';
+  const language = repo.language || '-';
+  return `| ${nameText} | ${description} | ${language} | ${repo.stargazers_count} | ${repo.forks_count} | ${visibility} |`;
 }
 
-async function updateReadme() {
-  const repos = await getRepos();
-  const table = generateTable(repos);
+(async () => {
+  try {
+    const repos = await getRepos();
+    repos.sort((a, b) => b.stargazers_count - a.stargazers_count);
 
-  let readme = fs.readFileSync(readmePath, "utf8");
-  const startTag = "<!-- START REPO TABLE -->";
-  const endTag = "<!-- END REPO TABLE -->";
+    const tableHeader = '| Repository | Description | Language | Stars | Forks | Visibility |\n|-----------|------------|---------|-------|-------|-----------|';
+    const tableRows = repos.map(formatRow).join('\n');
+    const newTable = `${tableHeader}\n${tableRows}`;
 
-  const regex = new RegExp(`${startTag}[\\s\\S]*${endTag}`, "m");
-  const newContent = `${startTag}\n${table}${endTag}`;
-  readme = readme.replace(regex, newContent);
+    const readme = fs.readFileSync(readmePath, 'utf-8');
+    const updatedReadme = readme.replace(
+      new RegExp(`${startMarker}[\\s\\S]*${endMarker}`),
+      `${startMarker}\n${newTable}\n${endMarker}`
+    );
 
-  fs.writeFileSync(readmePath, readme, "utf8");
-  console.log("README.md updated successfully!");
-}
-
-updateReadme().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+    fs.writeFileSync(readmePath, updatedReadme);
+    console.log('README.md repo table updated successfully!');
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+})();
