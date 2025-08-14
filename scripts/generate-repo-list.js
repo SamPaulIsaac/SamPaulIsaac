@@ -31,13 +31,7 @@ async function fetchRepos() {
 function generateTable(repos) {
   let table = "| Name | Description | Stars |\n|------|-------------|-------|\n";
   repos.forEach(r => {
-    let nameDisplay;
-    if (r.private) {
-      nameDisplay = `🔒 ${r.name}`; // private repo, non-clickable
-    } else {
-      nameDisplay = `[${r.name}](${r.html_url})`; // public repo, clickable
-    }
-
+    const nameDisplay = `[${r.name}](${r.html_url})`; // clickable for all repos
     table += `| ${nameDisplay} | ${r.description || "-"} | ${r.stargazers_count} |\n`;
   });
   return table;
