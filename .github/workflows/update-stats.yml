@@ -22,8 +22,8 @@ jobs:
 
       - name: Update README stats
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USERNAME: "Sam" # change to your GitHub username
+          GITHUB_TOKEN: ${{ secrets.PERSON_ACCESS_TOKEN }} # <-- your existing token stored as PAT
+          USERNAME: "SamPaul Isaac" # change to your GitHub username
         run: |
           node <<'EOF'
           const fs = require('fs');
@@ -36,21 +36,28 @@ jobs:
             const headers = { Authorization: `token ${token}` };
 
             // Fetch private repo count
-            const reposRes = await fetch(`https://api.github.com/user/repos?per_page=100&type=private`, { headers });
-            const repos = await reposRes.json();
-            const privateCount = repos.length;
+            let repoCount = 0;
+            let page = 1;
+            while (true) {
+              const reposRes = await fetch(`https://api.github.com/user/repos?per_page=100&type=private&page=${page}`, { headers });
+              const repos = await reposRes.json();
+              if (!repos.length) break;
+              repoCount += repos.length;
+              page++;
+            }
 
-            // Fetch commit activity (total this year)
-            const commitRes = await fetch(`https://api.github.com/search/commits?q=author:${username}+author-date:>${new Date().getFullYear()}-01-01`, {
+            // Fetch total commits this year
+            const year = new Date().getFullYear();
+            const commitRes = await fetch(`https://api.github.com/search/commits?q=author:${username}+author-date:>=${year}-01-01`, {
               headers: { ...headers, Accept: 'application/vnd.github.cloak-preview' }
             });
             const commitData = await commitRes.json();
-            const commitCount = commitData.total_count;
+            const commitCount = commitData.total_count || 0;
 
-            // Update README
+            // Update README with badge-compatible numbers
             let readme = fs.readFileSync('README.md', 'utf8');
-            readme = readme.replace(/(<!--PRIVATE_REPOS-->).*/, `$1 ${privateCount}`);
-            readme = readme.replace(/(<!--TOTAL_COMMITS-->).*/, `$1 ${commitCount}`);
+            readme = readme.replace(/(Private%20Repos-).*?-blue/, `$1${repoCount}-blue`);
+            readme = readme.replace(/(Commits%20This%20Year-).*?-green/, `$1${commitCount}-green`);
             fs.writeFileSync('README.md', readme);
           }
 
