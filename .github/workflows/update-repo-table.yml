@@ -1,30 +1,36 @@
-name: Update Repo Table
+name: Update README Repo Table
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'  # Runs daily at midnight UTC
+    - cron: "0 0 * * *" # every day at midnight UTC
+  workflow_dispatch: # manual trigger
 
 jobs:
-  update-repos:
+  update-readme:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
-        run: npm install
-        working-directory: .
+        run: npm ci
 
-      - name: Run repo list generator
-        run: node .github/workflows/generate-repo-list.js
+      - name: Update README
         env:
+          GITHUB_USERNAME: ${{ secrets.SAMPAULISAAC }}
           GITHUB_TOKEN: ${{ secrets.PAT }}
-        working-directory: ./
+        run: npm run update-readme
 
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Auto-update repo table & streak [skip ci]" || echo "No changes to commit"
+          git push
