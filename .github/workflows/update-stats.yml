@@ -2,80 +2,21 @@ name: Update GitHub Stats
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight UTC
-  workflow_dispatch: # Allow manual trigger
+    - cron: '0 0 * * *'  # Runs daily at midnight UTC
+  workflow_dispatch:      # Allows manual trigger
 
 jobs:
-  update-stats:
+  update-readme:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install axios
-
-      - name: Update README stats
+      - name: Commit & push README update
         run: |
-          node << 'EOF'
-          const fs = require('fs');
-          const axios = require('axios');
-
-          const username = 'SamPaulIsaac'; // replace with your GitHub username
-          const readmePath = 'README.md';
-
-          async function main() {
-            const [userData, repoData] = await Promise.all([
-              axios.get(`https://api.github.com/users/${username}`, {
-                headers: { 'Authorization': `token ${process.env.GITHUB_TOKEN}` }
-              }),
-              axios.get(`https://api.github.com/users/${username}/repos?per_page=100`, {
-                headers: { 'Authorization': `token ${process.env.GITHUB_TOKEN}` }
-              })
-            ]);
-
-            const privateRepos = userData.data.total_private_repos || 0;
-            const publicRepos = userData.data.public_repos || 0;
-            const totalRepos = privateRepos + publicRepos;
-
-            // Count stars
-            const totalStars = repoData.data.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-
-            // For commits and contributions, GitHub API doesn't give an easy count.
-            // You can use GitHub GraphQL API for more detailed stats if needed.
-
-            let readme = fs.readFileSync(readmePath, 'utf8');
-
-            // Replace badge values
-            readme = readme
-              .replace(/Private%20Repos-\d+-blue/, `Private%20Repos-${privateRepos}-blue`)
-              .replace(/Commits%20This%20Year-\d+-green/, `Commits%20This%20Year-0-green`) // Placeholder
-              .replace(/Total%20Stars-\d+-yellow/, `Total%20Stars-${totalStars}-yellow`)
-              .replace(/Contributions-\d+-purple/, `Contributions-0-purple`); // Placeholder
-
-            // Replace text counts
-            readme = readme
-              .replace(/(\*\*Private Repos:\*\*)\s+\d+/, `**Private Repos:** ${privateRepos}`)
-              .replace(/(\*\*Total Commits \(This Year\):\*\*)\s+\d+/, `**Total Commits (This Year):** 0`);
-
-            fs.writeFileSync(readmePath, readme);
-          }
-
-          main();
-          EOF
-
-      - name: Commit changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "chore: update README stats" || echo "No changes to commit"
+          git commit -m "Auto-update GitHub stats" || echo "No changes to commit"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSON_ACCESS_TOKEN }}
