@@ -1,14 +1,12 @@
 {
-  "name": "generate-repo-list",
+  "name": "repo-readme-updater",
   "version": "1.0.0",
-  "description": "GitHub Action script to generate dynamic repo table for README",
-  "main": "generate-repo-list.js",
+  "description": "Fetch GitHub repos and update README automatically",
+  "type": "module",
   "scripts": {
-    "start": "node generate-repo-list.js"
+    "update-readme": "node scripts/generate-repo-list.js"
   },
   "dependencies": {
-    "@octokit/rest": "^21.0.2"
-  },
-  "author": "Sam Paul Isaac",
-  "license": "MIT"
+    "node-fetch": "^3.3.2"
+  }
 }
