@@ -11,13 +11,13 @@ const octokit = new Octokit({ auth: GITHUB_TOKEN });
 const username = "SamPaulIsaac";
 const readmePath = "README.md";
 
+// Fetch all repos (public + private)
 async function fetchRepos(page = 1, repos = []) {
   try {
-    const response = await octokit.rest.repos.listForUser({
-      username,
+    const response = await octokit.rest.repos.listForAuthenticatedUser({
       per_page: 100,
       page,
-      type: "all", // include private repos
+      affiliation: "owner",
     });
 
     repos.push(...response.data);
@@ -33,20 +33,20 @@ async function fetchRepos(page = 1, repos = []) {
   }
 }
 
+// Build Markdown table for README
 function buildTable(repos) {
   let table = `<!-- START REPO TABLE -->\n| Repository | Description | Language | Stars | Forks | Visibility |\n|-----------|------------|---------|-------|-------|-----------|\n`;
 
   repos.forEach((repo) => {
-    const isPrivate = repo.private;
-    const nameDisplay = isPrivate ? repo.name : `[${repo.name}](${repo.html_url})`;
-    table += `| ${nameDisplay} | ${repo.description || "-"} | ${repo.language || "-"} | ${repo.stargazers_count} | ${repo.forks_count} | ${isPrivate ? "Private" : "Public"} |\n`;
+    const nameDisplay = repo.private ? repo.name : `[${repo.name}](${repo.html_url})`;
+    table += `| ${nameDisplay} | ${repo.description || "-"} | ${repo.language || "-"} | ${repo.stargazers_count} | ${repo.forks_count} | ${repo.private ? "Private" : "Public"} |\n`;
   });
 
   table += "<!-- END REPO TABLE -->";
   return table;
 }
 
-
+// Update README
 async function updateReadme() {
   const repos = await fetchRepos();
   const readme = readFileSync(readmePath, "utf-8");
