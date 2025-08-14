@@ -34,13 +34,17 @@ async function fetchRepos() {
 
 
 // Generate Markdown table
+// Generate Markdown table
 function generateTable(repos) {
   let table = "| Name | Description | Stars |\n|------|-------------|-------|\n";
   repos.forEach(r => {
-    table += `| [${r.name}](${r.html_url}) | ${r.description ? r.description : "No description"} | ${r.stargazers_count} |\n`;
+    // Add lock icon for private repos
+    const nameWithLock = r.private ? `🔒 [${r.name}](${r.html_url})` : `[${r.name}](${r.html_url})`;
+    table += `| ${nameWithLock} | ${r.description || "-"} | ${r.stargazers_count} |\n`;
   });
   return table;
 }
+
 
 // Read or initialize streak
 function getStreak() {
