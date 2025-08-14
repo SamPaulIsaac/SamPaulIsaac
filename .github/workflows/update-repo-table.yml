@@ -16,13 +16,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # or whichever Node version you prefer
+          node-version: '20'
 
-      - name: Install Octokit (temporary)
+      - name: Install Octokit
         run: npm install @octokit/rest
 
       - name: Generate Repository Table
-        run: node generate-repo-list.js
+        run: node .github/workflows/generate-repo-list.js
 
       - name: Commit & push README update
         run: |
