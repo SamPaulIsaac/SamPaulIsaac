@@ -17,6 +17,7 @@ async function fetchRepos() {
   });
 
   const data = await response.json();
+  console.log("API response:", data);
 
   // Error handling
   if (!Array.isArray(data)) {
