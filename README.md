@@ -1,14 +1,19 @@
 # Hi, I'm SamPaul Isaac👋
 
-![Private Repos](https://img.shields.io/badge/Private%20Repos-0-blue)
-![Commits This Year](https://img.shields.io/badge/Commits%20This%20Year-0-green)
-![Total Stars](https://img.shields.io/badge/Total%20Stars-0-yellow)
-![Contributions](https://img.shields.io/badge/Contributions-0-purple)
+## 📊 GitHub Stats
 
-- **Private Repos:** 0  
-- **Total Commits (This Year):** 0  
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=SamPaulIsaac&show_icons=true&count_private=true&theme=radical)
+
+### Quick Stats
+![Total Repositories](https://img.shields.io/github/repos/SamPaulIsaac?color=blue)
+![Total Commits](https://img.shields.io/github/commit-activity/m/SamPaulIsaac?color=green)
+![Total Stars](https://img.shields.io/github/stars/SamPaulIsaac?color=yellow)
+![Total Contributions](https://img.shields.io/github/contributors/SamPaulIsaac?color=purple)
 
 *Stats update daily via GitHub Actions.*
+
+### Top Languages
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=SamPaulIsaac&layout=compact&theme=radical)
 
 ---
 
