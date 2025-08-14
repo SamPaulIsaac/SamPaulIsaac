@@ -6,28 +6,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-repos:
+  update-repo-table:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Install Octokit
-        run: npm install @octokit/rest
+      - name: Install dependencies
+        run: npm install @octokit/rest dotenv
 
-      - name: Generate Repository Table
+      - name: Update README repo table
         run: node .github/workflows/generate-repo-list.js
 
-      - name: Commit & push README update
+      - name: Commit and push changes
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Auto-update GitHub repo table" || echo "No changes to commit"
+          git commit -m "Auto-update repo table" || echo "No changes to commit"
           git push
