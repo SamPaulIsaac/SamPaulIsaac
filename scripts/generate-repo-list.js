@@ -7,9 +7,9 @@ const TOKEN = process.env.GITHUB_TOKEN;
 const README_PATH = "./README.md";
 const STREAK_FILE = "./.github/workflows/streak.json";
 
-// Fetch repositories
+// Fetch repositories (only public)
 async function fetchRepos() {
-  const response = await fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100`, {
+  const response = await fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`, {
     headers: {
       Authorization: `token ${TOKEN}`,
       Accept: "application/vnd.github.v3+json"
@@ -19,20 +19,22 @@ async function fetchRepos() {
   const data = await response.json();
   console.log("API response:", data);
 
-  // Error handling
   if (!Array.isArray(data)) {
     console.error("Error fetching repos from GitHub API:", data);
     throw new Error("Failed to fetch repositories. Check USERNAME and TOKEN secrets.");
   }
 
-  return data.sort((a, b) => b.stargazers_count - a.stargazers_count);
+  // Keep only public repos and sort by stars descending
+  return data
+    .filter(repo => !repo.private)
+    .sort((a, b) => b.stargazers_count - a.stargazers_count);
 }
 
 // Generate Markdown table
 function generateTable(repos) {
-  let table = "| Name | Description | Stars | URL |\n|------|-------------|-------|-----|\n";
+  let table = "| Name | Description | Stars |\n|------|-------------|-------|\n";
   repos.forEach(r => {
-    table += `| [${r.name}](${r.html_url}) | ${r.description || "-"} | ${r.stargazers_count} | [Link](${r.html_url}) |\n`;
+    table += `| [${r.name}](${r.html_url}) | ${r.description ? r.description : "No description"} | ${r.stargazers_count} |\n`;
   });
   return table;
 }
@@ -53,7 +55,7 @@ function getStreak() {
 // Update streak
 function updateStreak(streak) {
   const today = new Date().toISOString().slice(0, 10);
-  if (streak.lastUpdated === today) return streak; // already updated today
+  if (streak.lastUpdated === today) return streak;
   streak.count += 1;
   streak.lastUpdated = today;
   try {
@@ -80,9 +82,9 @@ function updateReadme(table, streak) {
   const regexTable = new RegExp(`${start}[\\s\\S]*${end}`, "m");
   readme = readme.replace(regexTable, `${start}\n${table}${end}`);
 
-  // Update streak badge
+  // Update streak badge (simple URL from service)
   const streakBadgeRegex = /<img src="https:\/\/readme-streak-stats\.herokuapp\.com\/\?user=[^"]+"[^>]*>/;
-  const newBadge = `<img src="https://readme-streak-stats.herokuapp.com/?user=${USERNAME}&theme=dark&count=${streak.count}" alt="GitHub Streak" />`;
+  const newBadge = `<img src="https://readme-streak-stats.herokuapp.com/?user=${USERNAME}&theme=dark" alt="GitHub Streak" />`;
   readme = readme.replace(streakBadgeRegex, newBadge);
 
   try {
