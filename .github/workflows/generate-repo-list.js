@@ -9,7 +9,9 @@ if (!GITHUB_TOKEN) {
 
 const octokit = new Octokit({ auth: GITHUB_TOKEN });
 const username = "SamPaulIsaac";
-const readmePath = "README.md";
+const path = require("path");
+const readmePath = path.join(__dirname, "..", "..", "README.md");
+//const readmePath = "README.md";
 
 // Fetch all repos including private
 async function fetchRepos(page = 1, repos = []) {
