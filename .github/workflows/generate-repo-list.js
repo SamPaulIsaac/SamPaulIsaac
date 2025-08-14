@@ -1,41 +1,69 @@
+const fs = require('fs');
+const path = require('path');
 const { Octokit } = require("@octokit/rest");
-const fs = require("fs");
-require("dotenv").config();
 
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+// GitHub token with repo access
+const token = process.env.GITHUB_TOKEN;
+if (!token) {
+  console.error("Please set the GITHUB_TOKEN environment variable.");
+  process.exit(1);
+}
+
+const octokit = new Octokit({ auth: token });
 const username = "SamPaulIsaac";
-const readmePath = "./README.md";
+const readmePath = path.join(__dirname, "..", "README.md");
 
-(async () => {
-  try {
-    const repos = await octokit.rest.repos.listForUser({
+async function getRepos() {
+  let repos = [];
+  let page = 1;
+  const perPage = 100;
+
+  while (true) {
+    const response = await octokit.repos.listForUser({
       username,
-      type: "all",
-      sort: "updated",
-      per_page: 100,
+      per_page: perPage,
+      page
     });
 
-    let table = `| Repository | Description | Language | Stars | Forks | Visibility |\n`;
-    table += `|-----------|------------|---------|-------|-------|-----------|\n`;
-
-    repos.data.forEach(repo => {
-      const repoName = repo.private
-        ? `${repo.name}` // Non-clickable for private
-        : `[${repo.name}](${repo.html_url})`; // Clickable for public
-
-      table += `| ${repoName} | ${repo.description || "-"} | ${repo.language || "-"} | ${repo.stargazers_count} | ${repo.forks_count} | ${repo.private ? "Private" : "Public"} |\n`;
-    });
-
-    const readme = fs.readFileSync(readmePath, "utf-8");
-    const newReadme = readme.replace(
-      /<!-- REPO-LIST-START -->[\s\S]*<!-- REPO-LIST-END -->/,
-      `<!-- REPO-LIST-START -->\n${table}<!-- REPO-LIST-END -->`
-    );
-
-    fs.writeFileSync(readmePath, newReadme);
-    console.log("README table updated successfully.");
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
+    repos = repos.concat(response.data);
+    if (response.data.length < perPage) break;
+    page++;
   }
-})();
+
+  return repos;
+}
+
+function generateTable(repos) {
+  let table = `| Repository | Description | Language | Stars | Forks | Visibility |\n`;
+  table += `|-----------|------------|---------|-------|-------|-----------|\n`;
+
+  repos.forEach(repo => {
+    const nameCell = repo.private
+      ? `${repo.name}` // non-clickable for private
+      : `[${repo.name}](${repo.html_url})`;
+    table += `| ${nameCell} | ${repo.description || "-"} | ${repo.language || "-"} | ${repo.stargazers_count} | ${repo.forks_count} | ${repo.private ? "Private" : "Public"} |\n`;
+  });
+
+  return table;
+}
+
+async function updateReadme() {
+  const repos = await getRepos();
+  const table = generateTable(repos);
+
+  let readme = fs.readFileSync(readmePath, "utf8");
+  const startTag = "<!-- START REPO TABLE -->";
+  const endTag = "<!-- END REPO TABLE -->";
+
+  const regex = new RegExp(`${startTag}[\\s\\S]*${endTag}`, "m");
+  const newContent = `${startTag}\n${table}${endTag}`;
+  readme = readme.replace(regex, newContent);
+
+  fs.writeFileSync(readmePath, readme, "utf8");
+  console.log("README.md updated successfully!");
+}
+
+updateReadme().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
