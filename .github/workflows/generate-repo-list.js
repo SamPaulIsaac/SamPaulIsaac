@@ -1,5 +1,5 @@
 const { writeFileSync, readFileSync } = require("fs");
-const { Octokit } = require("octokit");
+const { Octokit } = require("@octokit/rest");
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 if (!GITHUB_TOKEN) {
@@ -11,13 +11,12 @@ const octokit = new Octokit({ auth: GITHUB_TOKEN });
 const username = "SamPaulIsaac";
 const readmePath = "README.md";
 
-// Fetch all repos (public + private)
 async function fetchRepos(page = 1, repos = []) {
   try {
     const response = await octokit.rest.repos.listForAuthenticatedUser({
+      visibility: "all",
       per_page: 100,
       page,
-      affiliation: "owner",
     });
 
     repos.push(...response.data);
@@ -33,7 +32,6 @@ async function fetchRepos(page = 1, repos = []) {
   }
 }
 
-// Build Markdown table for README
 function buildTable(repos) {
   let table = `<!-- START REPO TABLE -->\n| Repository | Description | Language | Stars | Forks | Visibility |\n|-----------|------------|---------|-------|-------|-----------|\n`;
 
@@ -46,7 +44,6 @@ function buildTable(repos) {
   return table;
 }
 
-// Update README
 async function updateReadme() {
   const repos = await fetchRepos();
   const readme = readFileSync(readmePath, "utf-8");
