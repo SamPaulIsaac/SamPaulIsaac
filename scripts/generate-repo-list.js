@@ -7,9 +7,9 @@ const TOKEN = process.env.GITHUB_TOKEN;
 const README_PATH = "./README.md";
 const STREAK_FILE = "./.github/workflows/streak.json";
 
-// Fetch repositories (only public)
+// Fetch repositories (public + private)
 async function fetchRepos() {
-  const response = await fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`, {
+  const response = await fetch(`https://api.github.com/user/repos?per_page=100&sort=updated`, {
     headers: {
       Authorization: `token ${TOKEN}`,
       Accept: "application/vnd.github.v3+json"
@@ -19,16 +19,19 @@ async function fetchRepos() {
   const data = await response.json();
   console.log("API response:", data);
 
+  // Error handling
   if (!Array.isArray(data)) {
     console.error("Error fetching repos from GitHub API:", data);
     throw new Error("Failed to fetch repositories. Check USERNAME and TOKEN secrets.");
   }
 
-  // Keep only public repos and sort by stars descending
-  return data
-    .filter(repo => !repo.private)
-    .sort((a, b) => b.stargazers_count - a.stargazers_count);
+  // Optional: filter out forks if you don't want them in the table
+  const filtered = data.filter(repo => !repo.fork);
+
+  // Sort by stargazers count descending
+  return filtered.sort((a, b) => b.stargazers_count - a.stargazers_count);
 }
+
 
 // Generate Markdown table
 function generateTable(repos) {
