@@ -112,5 +112,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 </p>
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.demolab.com?user=SamPaulIsaac&theme=dark" alt="GitHub Streak" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=SamPaulIsaac&theme=dark&hide=issues&hide_prs=true" alt="GitHub Streak" />
 </p>
+
+---
