@@ -31,7 +31,9 @@ async function fetchRepos() {
 function generateTable(repos) {
   let table = "| Name | Description | Stars |\n|------|-------------|-------|\n";
   repos.forEach(r => {
-    const nameDisplay = `[${r.name}](${r.html_url})`;
+    // Add lock emoji if private
+    const privateEmoji = r.private ? "🔒 " : "";
+    const nameDisplay = `[${privateEmoji}${r.name}](${r.html_url})`;
     table += `| ${nameDisplay} | ${r.description || "-"} | ${r.stargazers_count} |\n`;
   });
   return table;
