@@ -53,6 +53,18 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 <!-- START REPO TABLE -->
 | Name | Description | Stars |
 |------|-------------|-------|
+| [ai-and-ml-labs](https://github.com/SamPaulIsaac/ai-and-ml-labs) | A structured exploration of AI and machine learning concepts. Includes notebooks, experiments, and applied learning across key topics. | 1 |
+| [backend-labs-go](https://github.com/SamPaulIsaac/backend-labs-go) |   A structured collection of backend engineering prototypes and technical experiments using Go (Golang). | 1 |
+| [backend-labs-node](https://github.com/SamPaulIsaac/backend-labs-node) | A structured collection of backend engineering prototypes and technical experiments using Node.js. | 1 |
+| [backend-labs-rubyonrails](https://github.com/SamPaulIsaac/backend-labs-rubyonrails) |   A structured collection of backend engineering prototypes and technical experiments using Ruby on Rails. | 1 |
+| [backend-labs-springboot](https://github.com/SamPaulIsaac/backend-labs-springboot) | A hands-on collection of backend experiments and techniques. Includes projects exploring Spring Boot, testing strategies, messaging, and service architecture. | 1 |
+| [backend-learning-hub](https://github.com/SamPaulIsaac/backend-learning-hub) | - | 1 |
+| [dsa-labs](https://github.com/SamPaulIsaac/dsa-labs) | A structured collection of Data Structures and Algorithms (DSA) concepts, implementations, and problem-solving patterns. Designed for deep learning, coding interviews, and system-level thinking. | 1 |
+| [leetcode-labs](https://github.com/SamPaulIsaac/leetcode-labs) | A curated collection of my LeetCode problem-solving journey. Solutions are organized by difficulty and topic. | 1 |
+| [python-labs](https://github.com/SamPaulIsaac/python-labs) | A practical playground for Python scripting, data handling, and utility tools. Organized for quick experimentation and modular growth. | 1 |
+| [SamPaulIsaac](https://github.com/SamPaulIsaac/SamPaulIsaac) | - | 1 |
+| [theology-labs](https://github.com/SamPaulIsaac/theology-labs) | A platform for exploring and reflecting on Scripture. Features verse mappings, topics, and tools for structured learning. | 1 |
+| [multidomain-learning-labs](https://github.com/SamPaulIsaac/multidomain-learning-labs) | A personal knowledge hub for learning and upskilling across multiple domains, including tech, finance, mathematics, sports, world knowledge, and more. This repository contains curated notes, tutorials, and practical examples to support continuous learning and multidomain mastery. | 0 |
 <!-- END REPO TABLE -->
 
 ---
