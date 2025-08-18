@@ -61,10 +61,10 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 | [🔒 backend-learning-hub](https://github.com/SamPaulIsaac/backend-learning-hub) | - | 1 |
 | [🔒 dsa-labs](https://github.com/SamPaulIsaac/dsa-labs) | A structured collection of Data Structures and Algorithms (DSA) concepts, implementations, and problem-solving patterns. Designed for deep learning, coding interviews, and system-level thinking. | 1 |
 | [🔒 leetcode-labs](https://github.com/SamPaulIsaac/leetcode-labs) | A curated collection of my LeetCode problem-solving journey. Solutions are organized by difficulty and topic. | 1 |
+| [🔒 multidomain-learning-labs](https://github.com/SamPaulIsaac/multidomain-learning-labs) | A personal knowledge hub for learning and upskilling across multiple domains, including tech, finance, mathematics, sports, world knowledge, and more. This repository contains curated notes, tutorials, and practical examples to support continuous learning and multidomain mastery. | 1 |
 | [🔒 python-labs](https://github.com/SamPaulIsaac/python-labs) | A practical playground for Python scripting, data handling, and utility tools. Organized for quick experimentation and modular growth. | 1 |
 | [SamPaulIsaac](https://github.com/SamPaulIsaac/SamPaulIsaac) | - | 1 |
 | [🔒 theology-labs](https://github.com/SamPaulIsaac/theology-labs) | A platform for exploring and reflecting on Scripture. Features verse mappings, topics, and tools for structured learning. | 1 |
-| [🔒 multidomain-learning-labs](https://github.com/SamPaulIsaac/multidomain-learning-labs) | A personal knowledge hub for learning and upskilling across multiple domains, including tech, finance, mathematics, sports, world knowledge, and more. This repository contains curated notes, tutorials, and practical examples to support continuous learning and multidomain mastery. | 0 |
 <!-- END REPO TABLE -->
 
 ---
