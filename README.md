@@ -65,6 +65,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 | [🔒 python-labs](https://github.com/SamPaulIsaac/python-labs) | A practical playground for Python scripting, data handling, and utility tools. Organized for quick experimentation and modular growth. | 1 |
 | [SamPaulIsaac](https://github.com/SamPaulIsaac/SamPaulIsaac) | - | 1 |
 | [🔒 theology-labs](https://github.com/SamPaulIsaac/theology-labs) | A platform for exploring and reflecting on Scripture. Features verse mappings, topics, and tools for structured learning. | 1 |
+| [🔒 deployment-labs](https://github.com/SamPaulIsaac/deployment-labs) | A structured collection of deployment experiments and workflows. Includes Docker, Kubernetes, CI/CD, Terraform, Ansible, and cloud setups. | 0 |
 <!-- END REPO TABLE -->
 
 ---
