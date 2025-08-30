@@ -33,21 +33,6 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 
 ---
 
-### 📊 GitHub Stats & Top Languages
-
-<table>
-  <tr>
-    <td valign="top">
-      <img src="https://github-readme-stats.vercel.app/api?username=SamPaulIsaac&show_icons=true&count_private=true&title_color=007ACC&icon_color=007ACC&text_color=333333&bg_color=F5F5F5&hide=prs,issues,contribs" />
-    </td>
-    <td valign="top">
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SamPaulIsaac&layout=compact&hide=html,css&langs_count=6&title_color=007ACC&text_color=333333&bg_color=F5F5F5" />
-    </td>
-  </tr>
-</table>
-
----
-
 ### 📊 GitHub Repositories
 
 <!-- START REPO TABLE -->
