@@ -29,26 +29,15 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 |--------------------|----------|------------------|-------------------------|----------------|-------------------|-------------|
 | [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square&logo=spring&logoColor=white)](https://spring.io/projects/spring-boot) | [![Java](https://img.shields.io/badge/Java-007396?style=flat-square&logo=java&logoColor=white)](https://www.java.com/) | [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/) | [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?style=flat-square&logo=rabbitmq&logoColor=white)](https://www.rabbitmq.com/) | [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/) | [![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white)](https://prometheus.io/) | [![JUnit](https://img.shields.io/badge/JUnit-25A162?style=flat-square&logo=junit5&logoColor=white)](https://junit.org/junit5/) |
 | [![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/) | [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/) | [![Kafka](https://img.shields.io/badge/Kafka-231F20?style=flat-square&logo=apachekafka&logoColor=white)](https://kafka.apache.org/) | [![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)](https://kubernetes.io/) | [![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=grafana&logoColor=white)](https://grafana.com/) | [![Mockito](https://img.shields.io/badge/Mockito-2D8C6D?style=flat-square&logo=Mockito&logoColor=white)](https://site.mockito.org/) |
-| [![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white)](https://www.djangoproject.com/) | [![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) | [![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/) | [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?style=flat-square&logo=rabbitmq&logoColor=white)](https://www.rabbitmq.com/) | [![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)](https://github.com/features/actions) | [![ELK Stack](https://img.shields.io/badge/ELK-005571?style=flat-square&logo=elastic&logoColor=white)](https://www.elastic.co/what-is/elk-stack) | [![Cucumber](https://img.shields.io/badge/Cucumber-39D885?style=flat-square&logo=cucumber&logoColor=white)](https://cucumber.io/) |
+| [![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white)](https://www.djangoproject.com/) | [![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) | [![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/) | | [![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)](https://github.com/features/actions) | [![ELK Stack](https://img.shields.io/badge/ELK-005571?style=flat-square&logo=elastic&logoColor=white)](https://www.elastic.co/what-is/elk-stack) | [![Cucumber](https://img.shields.io/badge/Cucumber-39D885?style=flat-square&logo=cucumber&logoColor=white)](https://cucumber.io/) |
 | | [![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white)](https://golang.org/) | [![H2](https://img.shields.io/badge/H2-2E4053?style=flat-square&logo=H2database&logoColor=white)](https://www.h2database.com/html/main.html) | | | | |
 
 ---
 
-### 🌟 Featured Projects
-- **Backend Labs SpringBoot:** Microservices, messaging, and integration experiments.  
-- **DSA Labs:** Structured exploration of algorithms, data structures, and problem-solving patterns.  
-- **Deployment Labs:** Docker, Kubernetes, Terraform, CI/CD workflows.  
-- **AI & ML Labs:** Machine learning and AI notebooks, experiments, and applied learning.  
+### 📊 GitHub Repositories
 
----
-
-### 📊 GitHub Stats
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=SamPaulIsaac&show_icons=true&count_private=true&theme=radical" alt="GitHub Stats" />
-  <br/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SamPaulIsaac&layout=compact&langs_count=6&theme=radical" alt="Top Languages" />
-</p>
+<!-- START REPO TABLE -->
+<!-- END REPO TABLE -->
 
 ---
 
@@ -64,4 +53,6 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
   </a>
 </p>
 
----
+<p align="center">
+  <img src="https://readme-streak-stats.herokuapp.com/?user=SAMPAULISAAC&theme=dark&count=0" alt="GitHub Streak" />
+</p>
