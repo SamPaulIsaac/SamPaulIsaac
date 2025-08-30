@@ -70,18 +70,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 
 ---
 
-### 📌 Activity & Connect
-
-<p align="center">
-  <!-- GitHub Stats (includes private contributions in stats, but not streaks) -->
-  <img src="https://github-readme-stats.vercel.app/api?username=SamPaulIsaac&show_icons=true&count_private=true&theme=dark&title_color=007ACC&icon_color=007ACC&text_color=FFFFFF&bg_color=0D1117&hide=prs,issues,contribs" alt="GitHub Stats" />
-</p>
-
-<p align="center">
-  <!-- Top Languages -->
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SamPaulIsaac&layout=compact&hide=html,css&langs_count=6&title_color=007ACC&text_color=FFFFFF&bg_color=0D1117" alt="Top Languages" />
-</p>
-
+### 📌 Connect
 
 <p align="center">
   <!-- Contact Badges -->
