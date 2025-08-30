@@ -80,7 +80,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 
 <p align="center">
   <a href="https://github.com/SamPaulIsaac">
-    <img src="https://img.shields.io/badge/🔥-Daily%20Commits-blue?style=for-the-badge&logo=github" alt="Daily Commits Badge" />
+    <img src="https://github-readme-stats.vercel.app/api?username=SamPaulIsaac&show_icons=true&count_private=true" alt="GitHub stats" />
   </a>
 </p>
 
