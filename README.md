@@ -72,15 +72,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 
 ### 📌 Activity & Connect
 
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=SamPaulIsaac&theme=dark&hide_border=true&count_private=true" alt="GitHub Streak" />
-</p>
 
-<p align="center">
-  <a href="https://github.com/SamPaulIsaac">
-    <img src="https://github-readme-stats.vercel.app/api?username=SamPaulIsaac&show_icons=true&count_private=true" alt="GitHub stats" />
-  </a>
-</p>
 
 
 <p align="center">
