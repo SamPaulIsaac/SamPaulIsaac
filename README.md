@@ -27,17 +27,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 
 | Backend & Frameworks | Languages | Databases & Storage | Messaging & Event-Driven | DevOps & CI/CD | Monitoring & Logging | Testing & QA |
 |--------------------|----------|------------------|-------------------------|----------------|-------------------|-------------|
-| Spring Boot, Express.js, Django, Gin, Sails.js, Ruby on Rails | Java, JavaScript, Python, Go | MySQL, PostgreSQL, MongoDB, SQL Server, H2 | RabbitMQ, Kafka | Docker, GitHub Actions, Kubernetes | Prometheus, Grafana, ELK | JUnit, Mockito, Cucumber |
-
----
-
-### 📊 GitHub Stats
-
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=SAMPAULISAAC&theme=dark" alt="GitHub Streak" />
-  <img src="https://github-readme-stats.vercel.app/api?username=SAMPAULISAAC&show_icons=true&theme=dark&count_private=true" alt="Total Contributions & Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SAMPAULISAAC&theme=dark&layout=compact&langs_count=8" alt="Top Languages" />
-</p>
+| Spring Boot, Express.js, Django, Gin, Sails.js, Ruby on Rails | Java, JavaScript, Python, Go | MySQL, PostgreSQL, MongoDB, SQL Server, H2 | RabbitMQ, Kafka | Docker, GitHub Actions, Kubernetes | Prometheus, Grafana, ELK Stack | JUnit, Mockito, Cucumber |
 
 ---
 
@@ -46,7 +36,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 <!-- START REPO TABLE -->
 | Name | Description | Stars |
 |------|-------------|-------|
-<!-- This section will be dynamically populated by the GitHub Action script -->
+<!-- This table will be populated dynamically via your GitHub Action -->
 <!-- END REPO TABLE -->
 
 ---
@@ -61,4 +51,8 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
   <a href="mailto:sampaulisaac.career@outlook.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white&animation=shine" alt="Email" />
   </a>
+</p>
+
+<p align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=SAMPAULISAAC&theme=dark" alt="GitHub Streak" />
 </p>
