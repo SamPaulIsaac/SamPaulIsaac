@@ -65,6 +65,4 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
   </a>
 </p>
 
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=SAMPAULISAAC&theme=dark" alt="GitHub Streak" />
-</p>
+---
