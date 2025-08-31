@@ -59,7 +59,6 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
   <a href="https://www.linkedin.com/in/sampaulisaac/" target="_blank">
     <img src="https://img.shields.io/badge/LinkedIn-007ACC?style=for-the-badge&logo=linkedin&logoColor=white&animation=shine" alt="LinkedIn" />
   </a>
-  <span style="display:inline-block; width: 10px;"></span>
   <a href="mailto:sampaulisaac.career@outlook.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white&animation=shine" alt="Email" />
   </a>
