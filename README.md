@@ -55,7 +55,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 
 ### 📌 Connect
 
-<p align="center">
+<p>
   <a href="https://www.linkedin.com/in/sampaulisaac/" target="_blank">
     <img src="https://img.shields.io/badge/LinkedIn-007ACC?style=for-the-badge&logo=linkedin&logoColor=white&animation=shine" alt="LinkedIn" />
   </a>
