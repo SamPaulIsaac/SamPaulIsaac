@@ -3,7 +3,7 @@ name: Update README Repo Table
 on:
   schedule:
     - cron: "0 0 * * *" # every day at midnight UTC
-  workflow_dispatch: # manual trigger
+  workflow_dispatch:
 
 jobs:
   update-readme:
@@ -21,16 +21,20 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Update README
+      - name: Run README update script
         env:
           GITHUB_USERNAME: SAMPAULISAAC
           GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: npm run update-readme
+        run: |
+          echo ">>> Running update-readme script..."
+          set -o pipefail
+          npm run update-readme 2>&1 | tee update-readme.log
 
       - name: Commit and push changes
         run: |
+          echo ">>> Committing changes..."
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Auto-update repo table & streak [skip ci]" || echo "No changes to commit"
+          git diff --cached --quiet || git commit -m "Auto-update repo table & streak [skip ci]"
           git push
