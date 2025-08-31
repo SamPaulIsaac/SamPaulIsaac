@@ -41,16 +41,24 @@ function generateTable(repos) {
 
 // Read or initialize streak
 function getStreak() {
+  const today = new Date().toISOString().slice(0, 10);
+
   if (!fs.existsSync(STREAK_FILE)) {
-    return { lastUpdated: new Date().toISOString().slice(0, 10), count: 0 };
+    const initialStreak = { lastUpdated: today, count: 1 }; // start from 1
+    fs.writeFileSync(STREAK_FILE, JSON.stringify(initialStreak, null, 2));
+    return initialStreak;
   }
+
   try {
     return JSON.parse(fs.readFileSync(STREAK_FILE, "utf-8"));
   } catch (err) {
     console.error("Error reading streak file:", err);
-    return { lastUpdated: new Date().toISOString().slice(0, 10), count: 0 };
+    const fallbackStreak = { lastUpdated: today, count: 1 };
+    fs.writeFileSync(STREAK_FILE, JSON.stringify(fallbackStreak, null, 2));
+    return fallbackStreak;
   }
 }
+
 
 // Update streak
 function updateStreak(streak) {
@@ -81,8 +89,9 @@ function updateReadme(table, streak) {
   const regexTable = new RegExp(`${start}[\\s\\S]*${end}`, "m");
   readme = readme.replace(regexTable, `${start}\n${table}${end}`);
 
-  const streakBadgeRegex = /<img src="https:\/\/readme-streak-stats\.herokuapp\.com\/\?user=[^"]+"[^>]*>/;
-  const newBadge = `<img src="https://readme-streak-stats.herokuapp.com/?user=${USERNAME}&theme=dark&count=${streak.count}" alt="GitHub Streak" />`;
+  const streakBadgeRegex = /<img src="https:\/\/streak-stats\.demolab\.com\/\?user=[^"]+"[^>]*>/;
+  const newBadge = `<img src="https://streak-stats.demolab.com/?user=${USERNAME}&theme=dark&count=${streak.count}" alt="GitHub Streak" />`;
+
   readme = readme.replace(streakBadgeRegex, newBadge);
 
   try {
