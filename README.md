@@ -51,6 +51,7 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 | [🔒 leetcode-labs](https://github.com/SamPaulIsaac/leetcode-labs) | A curated collection of my LeetCode problem-solving journey. Solutions are organized by difficulty and topic. | 0 |
 | [🔒 multidomain-learning-labs](https://github.com/SamPaulIsaac/multidomain-learning-labs) | A personal knowledge hub for learning and upskilling across multiple domains, including tech, finance, mathematics, sports, world knowledge, and more. This repository contains curated notes, tutorials, and practical examples to support continuous learning and multidomain mastery. | 0 |
 | [🔒 python-labs](https://github.com/SamPaulIsaac/python-labs) | A practical playground for Python scripting, data handling, and utility tools. Organized for quick experimentation and modular growth. | 0 |
+| [🔒 tech-notes](https://github.com/SamPaulIsaac/tech-notes) | A centralized repository for organized tech learning notes across frontend, backend, DevOps, AI/ML, testing, tools, and more. | 0 |
 | [🔒 theology-labs](https://github.com/SamPaulIsaac/theology-labs) | A platform for exploring and reflecting on Scripture. Features verse mappings, topics, and tools for structured learning. | 0 |
 <!-- END REPO TABLE -->
 
