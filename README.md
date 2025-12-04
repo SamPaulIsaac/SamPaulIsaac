@@ -37,7 +37,6 @@ I specialize in **microservices, event-driven architectures, and enterprise-grad
 | Name | Description | Stars |
 |------|-------------|-------|
 | [🔒 ai-and-ml-labs](https://github.com/SamPaulIsaac/ai-and-ml-labs) | A structured exploration of AI and machine learning concepts. Includes notebooks, experiments, and applied learning across key topics. | 0 |
-| [🔒 body-mind-optimization](https://github.com/SamPaulIsaac/body-mind-optimization) | A lifelong journey toward achieving optimal balance between physique, health, nutrition, and performance - combining data, discipline, and mindfulness. | 0 |
 | [🔒 deployment-labs](https://github.com/SamPaulIsaac/deployment-labs) | A structured collection of deployment experiments and workflows. Includes Docker, Kubernetes, CI/CD, Terraform, Ansible, and cloud setups. | 0 |
 | [🔒 dsa-labs](https://github.com/SamPaulIsaac/dsa-labs) | A structured collection of Data Structures and Algorithms (DSA) concepts, implementations, and problem-solving patterns. Designed for deep learning, coding interviews, and system-level thinking. | 0 |
 | [🔒 framework-labs](https://github.com/SamPaulIsaac/framework-labs) | A collection of hands-on explorations and practice projects across popular software frameworks. This repository is organized by framework, with each folder containing examples, exercises, and version-specific concepts. | 0 |
