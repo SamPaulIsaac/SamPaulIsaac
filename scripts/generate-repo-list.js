@@ -5,7 +5,7 @@ const USERNAME = process.env.GITHUB_USERNAME;
 const TOKEN = process.env.GITHUB_TOKEN;
 const README_PATH = "./README.md";
 
-console.log("Token present:", !!token);
+console.log("Token present:", !!TOKEN);
     
 async function fetchRepos() {
   const res = await fetch(
