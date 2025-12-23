@@ -5,14 +5,29 @@ const USERNAME = process.env.GITHUB_USERNAME;
 const TOKEN = process.env.GITHUB_TOKEN;
 const README_PATH = "./README.md";
 
+console.log("Token present:", !!token);
+    
 async function fetchRepos() {
-  const res = await fetch(`https://api.github.com/user/repos?per_page=100`, {
-    headers: { Authorization: `token ${TOKEN}`, Accept: "application/vnd.github.v3+json" }
-  });
+  const res = await fetch(
+    `https://api.github.com/users/${process.env.GITHUB_USERNAME}/repos?per_page=100`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        Accept: "application/vnd.github+json",
+      },
+    }
+  );
+
+  if (!res.ok) {
+    console.error("Status:", res.status);
+    console.error(await res.text());
+    throw new Error("Failed to fetch repos");
+  }
+
   const data = await res.json();
-  if (!Array.isArray(data)) throw new Error("Failed to fetch repos");
   return data.sort((a, b) => b.stargazers_count - a.stargazers_count);
 }
+
 
 function generateRepoTable(repos) {
   let table = "| Name | Description | Stars |\n|------|-------------|-------|\n";
